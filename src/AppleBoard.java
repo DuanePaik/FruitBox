@@ -4,16 +4,22 @@ import java.util.*;
 
 public class AppleBoard {
 	
-	private int score;
+	private int score = 0;
 	private int t_row = -1, t_col = -1, t_value = -1;
 	private int[][] board = new int[12][15];
 	private boolean first = true;
 	private boolean second = false;
 	private boolean target = false;
-	private int t_gold = 0;
+	private int gold_count = 0;
+	private int temp_gold = 0;
+	private int score_count = 0;
+	private LocalTime start_time;
+	private LocalTime end_time;
 	
 	public AppleBoard(){
 		createNewBoard();
+		start_time = LocalTime.now();
+		end_time = start_time.plusMinutes(5);
 	}
 	
 	public void createNewBoard() {
@@ -36,142 +42,205 @@ public class AppleBoard {
 	}
 	
 	public boolean isFirst() { return target; }
-	
+
+	public int getScore() { return score; }
+
 	public void targetOn() { target = true;}
 	public void targetOff() { target = false;}
 	public void setTarget(int[] info) {
 		t_row = info[0];
 		t_col = info[1];
 		t_value = info[2];
-		t_gold = info[3];
-		System.out.println(""+t_row+" "+t_col+" "+t_value+" "+t_gold);
+		System.out.println(""+t_row+" "+t_col+" "+t_value);
 	}
 	
 	public int[][] getGameBoard() { return board; }
-	
+	public void makeZero(int row, int col){
+		if(board[row][col] != 0)
+			score_count += 1;
+		board[row][col] = 0;
+	}
+	public void calcScore(){
+		score += score_count * (int)Math.pow(2.0, gold_count);
+		score_count = 0;
+		gold_count = 0;
+	}
 	public boolean check(int[] info) {
 		if(t_row == info[0] && t_col != info[1]) {
 			
 			if(info[1] > t_col) {
+					System.out.println("case1");
 					int sum = 0;
 					for(int i = t_col ; i <= info[1] ; i++)
 						sum = sum + normalize(board[t_row][i]);
 					if (sum == 10) {
 						for(int i = t_col ; i <= info[1] ; i++)
-							board[t_row][i] = 0;
+							makeZero(t_row, i);
+						gold_count += temp_gold;
+						temp_gold = 0;
+						calcScore();
 						return true; 
 						}
-					else return false;
+					else {
+						temp_gold = 0;
+						return false;
+					}
 					}
 			else if(info[1] < t_col) {
+				System.out.println("case2");
 					int sum = 0;
 					for(int i = info[1] ; i <= t_col ; i++)
 						sum = sum + normalize(board[t_row][i]);
 					if (sum == 10){
 						for(int i = info[1] ; i <= t_col ; i++)
-							board[t_row][i] = 0;
+							makeZero(t_row, i);
+						gold_count += temp_gold;
+						temp_gold = 0;
+						calcScore();
 						return true; 
 						}
-					else return false;
+					else {
+						temp_gold = 0;
+						return false;
 					}
+			}
 		}
 		else if(t_row != info[0] && t_col == info[1]) {
 			
 			if(info[0] > t_row) {
+				System.out.println("case3");
 					int sum = 0;
 					for(int i = t_row ; i <= info[0] ; i++)
 						sum = sum + normalize(board[i][t_col]);
 					if (sum == 10) {
 						for(int i = t_row ; i <= info[0] ; i++)
-							board[i][t_col] = 0;
+							makeZero(i,t_col);
+						gold_count += temp_gold;
+						temp_gold = 0;
+						calcScore();
 						return true; 
 						}
-					else return false;
+					else {
+						temp_gold = 0;
+						return false;
 					}
+			}
 			else if(info[0] < t_row) {
+				System.out.println("case4");
 					int sum = 0;
 					for(int i = info[0] ; i <= t_row ; i++)
 						sum = sum + normalize(board[i][t_col]);
 					if (sum == 10){
 						for(int i = info[0] ; i <= t_row ; i++)
-							board[i][t_col] = 0;
+							makeZero(i,t_col);
+						gold_count += temp_gold;
+						temp_gold = 0;
+						calcScore();
 						return true; 
 						}
-					else return false;
+					else {
+						temp_gold = 0;
+						return false;
 					}
+			}
 		}
 		else if(t_row != info[0] && t_col != info[1]) {
 			
 			if((info[0] > t_row) && (info[1] > t_col)) {
+				System.out.println("case5");
 				int sum = 0;
 				for(int i = t_row; i <= info[0] ; i++)
 					for(int j = t_col; j <= info[1] ; j++)
-						sum = sum + board[i][j];
+						sum = sum + normalize(board[i][j]);
 				if(sum == 10) {
 					for(int i = t_row; i <= info[0] ; i++)
 						for(int j = t_col; j <= info[1] ; j++)
-							board[i][j] = 0;
+							makeZero(i,j);
+					gold_count += temp_gold;
+					temp_gold = 0;
+					calcScore();
 					return true;
 					}
-				else return false;
+				else {
+					temp_gold = 0;
+					return false;
+				}
 			}
 			else if((info[0] < t_row) && (info[1] > t_col)) {
+				System.out.println("case6");
 				int sum = 0;
 				for(int i = info[0]; i <= t_row ; i++)
 					for(int j = t_col; j <= info[1] ; j++)
-						sum = sum + board[i][j];
+						sum = sum + normalize(board[i][j]);
 				if(sum == 10) {
 					for(int i = info[0]; i <= t_row ; i++)
 						for(int j = t_col; j <= info[1] ; j++)
-							board[i][j] = 0;
+							makeZero(i,j);
+					gold_count += temp_gold;
+					temp_gold = 0;
+					calcScore();
 					return true;
 					}
-				else return false;
+				else {
+					temp_gold = 0;
+					return false;
+				}
 			}
 			else if((info[0] > t_row) && (info[1] < t_col)) {
+				System.out.println("case7");
 				int sum = 0;
 				for(int i = t_row; i <= info[0] ; i++)
 					for(int j = info[1]; j <= t_col ; j++)
-						sum = sum + board[i][j];
+						sum = sum + normalize(board[i][j]);
 				if(sum == 10) {
 					for(int i = t_row; i <= info[0] ; i++)
 						for(int j = info[1]; j <= t_col ; j++)
-							board[i][j] = 0;
+							makeZero(i,j);
+					gold_count += temp_gold;
+					temp_gold = 0;
+					calcScore();
 					return true;
 					}
-				else return false;			
+				else {
+					temp_gold = 0;
+					return false;
+				}
 			}
 			else if((info[0] < t_row) && (info[1] < t_col)) {
+				System.out.println("case8");
 				int sum = 0;
 				for(int i = info[0]; i <= t_row ; i++)
 					for(int j = info[1]; j <= t_col ; j++)
-						sum = sum + board[i][j];
+						sum = sum + normalize(board[i][j]);
 				if(sum == 10) {
 					for(int i = info[0]; i <= t_row ; i++)
 						for(int j = info[1]; j <= t_col ; j++)
-							board[i][j] = 0;
+							makeZero(i,j);
+					gold_count += temp_gold;
+					temp_gold = 0;
+					calcScore();
 					return true;
 					}
-				else return false;		
+				else{
+					temp_gold = 0;
+					return false;
+				}
 			}
 		}
 		return false;
 	}
 	
-	public boolean isTarget(int[] info) {
-		if((t_row == info[0])&&(t_col == info[1]))
-			return true;
-		return false;
-	}
+	public boolean isTarget(int[] info) { return (t_row == info[0]) && (t_col == info[1]); }
 	
 	public int normalize(int value) {
-		if(value > 9)
+		if(value > 9) {
+			temp_gold += 1;
 			return value / 10;
+		}
 		else
 			return value;
 	}
-	
-	public void time_start() {
-		
-	}
+
+	public LocalTime getStart_time(){ return start_time; }
+	public LocalTime getEnd_time(){ return end_time; }
 }

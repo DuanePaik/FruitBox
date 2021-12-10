@@ -10,17 +10,12 @@ public class ResetButton extends JButton implements ActionListener{
 	
 	private AppleBoard board;
 	private AppleFrame frame;
-	private ImageIcon[] button_img = new ImageIcon[8];
 
 	
 	public ResetButton(AppleBoard b, AppleFrame f) {
 		
 		board = b;
 		frame = f;
-
-		for(int i = 0; i < button_img.length ; i++) {
-			button_img[i] = new ImageIcon("./src/imgPack/b" + i + ".png");
-		}
 		
 		Image image = Toolkit.getDefaultToolkit().createImage("./src/imgPack/spinning.gif");
         ImageIcon spinIcon = new ImageIcon(image);

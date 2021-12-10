@@ -11,7 +11,6 @@ public class AppleButton extends JButton implements ActionListener{
 	private int row;
 	private int col;
 	private int face;
-	private int type;
 	private ImageIcon img;
 	private ImageIcon cimg;
 
@@ -29,14 +28,10 @@ public class AppleButton extends JButton implements ActionListener{
 	}
 	
 	public void setApple(int n) {
-		if (n > 9)	{ 
-			face = n / 10; 
-			type = 1;
-			}
-		else { 
-			face = n; 
-			type = 0;
-			}
+		if (n > 9)
+			face = n / 10;
+		else
+			face = n;
 		img = new ImageIcon("./src/imgPack/a" + n + ".png");
 		cimg = new ImageIcon("./src/imgPack/ca" + n + ".png");
 		setIcon(img);
@@ -53,21 +48,23 @@ public class AppleButton extends JButton implements ActionListener{
 		if (!board.isFirst()) {
 			board.targetOn();
 			lightOn();
-			board.setTarget(new int[]{row,col,face,type});
+			board.setTarget(new int[]{row,col,face});
 		}
-		else if((board.isFirst())&&(board.isTarget(new int[]{row,col,face,type}))){
+		else if((board.isFirst())&&(board.isTarget(new int[]{row,col,face}))){
 			board.targetOff();
 			lightOff();
-			board.setTarget(new int[]{-1,-1,-1,0});
+			board.setTarget(new int[]{-1,-1,-1});
 		}
 		else {
-			if(board.check(new int[]{row,col,face,type})) {
+			if(board.check(new int[]{row,col,face})) {
 				System.out.println("Success");
+				System.out.println(""+board.getScore());
 				board.targetOff();
 				frame.update();
 			}
 			else {
 				System.out.println("Fail");
+				System.out.println(""+board.getScore());
 				board.targetOff();
 				frame.update();
 			}
