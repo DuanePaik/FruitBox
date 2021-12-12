@@ -30,7 +30,9 @@ public class ResetButton extends JButton implements ActionListener{
 	
 
 	public void actionPerformed(ActionEvent e) {
-		board.createNewBoard();
-		frame.update();
+		if(frame.get_gameOn()) {
+			board.createNewBoard();
+			frame.update();
+		}
 	}
 }

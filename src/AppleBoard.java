@@ -19,7 +19,7 @@ public class AppleBoard {
 	public AppleBoard(){
 		createNewBoard();
 		start_time = LocalTime.now();
-		end_time = start_time.plusMinutes(5);
+		end_time = start_time.plusMinutes(1);
 	}
 	
 	public void createNewBoard() {

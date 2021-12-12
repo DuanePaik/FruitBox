@@ -45,28 +45,29 @@ public class AppleButton extends JButton implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if (!board.isFirst()) {
-			board.targetOn();
-			lightOn();
-			board.setTarget(new int[]{row,col,face});
-		}
-		else if((board.isFirst())&&(board.isTarget(new int[]{row,col,face}))){
-			board.targetOff();
-			lightOff();
-			board.setTarget(new int[]{-1,-1,-1});
-		}
-		else {
-			if(board.check(new int[]{row,col,face})) {
-				System.out.println("Success");
-				System.out.println(""+board.getScore());
+
+		if(frame.get_gameOn()) {
+
+			if (!board.isFirst()) {
+				board.targetOn();
+				lightOn();
+				board.setTarget(new int[]{row, col, face});
+			} else if ((board.isFirst()) && (board.isTarget(new int[]{row, col, face}))) {
 				board.targetOff();
-				frame.update();
-			}
-			else {
-				System.out.println("Fail");
-				System.out.println(""+board.getScore());
-				board.targetOff();
-				frame.update();
+				lightOff();
+				board.setTarget(new int[]{-1, -1, -1});
+			} else {
+				if (board.check(new int[]{row, col, face})) {
+					System.out.println("Success");
+					System.out.println("" + board.getScore());
+					board.targetOff();
+					frame.update();
+				} else {
+					System.out.println("Fail");
+					System.out.println("" + board.getScore());
+					board.targetOff();
+					frame.update();
+				}
 			}
 		}
 	}

@@ -3,7 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Random;
 import javax.swing.*;
 
 public class AppleFrame extends JFrame{
@@ -12,6 +11,7 @@ public class AppleFrame extends JFrame{
 	private AppleButton[][] button_board;
 	private Image bg = new ImageIcon("./src/imgPack/gboard.png").getImage();
 	private JLabel score;
+	private boolean game_On = false;
 	
 	public AppleFrame (AppleBoard b) {
 		
@@ -74,11 +74,19 @@ public class AppleFrame extends JFrame{
 			public void paintComponent(Graphics g){
 				super.paintComponent(g);
 				int width;
+				Image bar = new ImageIcon("./src/imgPack/hpBar.png").getImage();
+				Image bar2 = new ImageIcon("./src/imgPack/bar2.png").getImage();
 				float full_time = (float)ChronoUnit.SECONDS.between(board.getStart_time(),board.getEnd_time());
 				float last_time = (float)ChronoUnit.SECONDS.between(LocalTime.now(),board.getEnd_time());
 				width = (int)(200 * last_time / full_time);
+				if (width == 0){
+					new ScoreLabel(board);
+					new ResultFrame();
+					dispose();
+				}
 				g.setColor(Color.black);
-				g.fillRect(0,17,width,15);
+				g.drawImage(bar2, 0, 17, 200, 15, this );
+				g.drawImage(bar, 0, 17, width, 15, this );
 			}
 
 			class action implements ActionListener{
@@ -117,13 +125,19 @@ public class AppleFrame extends JFrame{
 		background.add(p3, BorderLayout.SOUTH);
 		background.add(p4, BorderLayout.WEST);
 		background.add(p5, BorderLayout.EAST);
+
+		set_gameOn();
 		update();
 		setTitle("Fruit Box");
 		setSize(855,759);
 		setResizable(false);
 		setVisible(true);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
+
+	public boolean get_gameOn() { return game_On; }
+	public void set_gameOff() { game_On = false; }
+	public void set_gameOn() { game_On = true; }
 
 	private void setGrid(JComponent obj,double wx, double wy, int x, int y, GridBagConstraints gbc, JPanel panel) {
 		gbc.weightx = wx;
