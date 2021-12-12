@@ -42,7 +42,7 @@ public class ScoreLabel extends JLabel {
             for (int i = 0 ; i < scoreimg.length ; i++)
                 width += scoreimg[i].getWidth(null);
 
-            BufferedImage mergedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            BufferedImage mergedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             Graphics2D graphics = (Graphics2D) mergedImage.getGraphics();
 
             graphics.setBackground(new Color(255, 0, 0, 0));

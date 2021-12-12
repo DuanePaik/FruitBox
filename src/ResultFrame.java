@@ -22,9 +22,9 @@ public class ResultFrame extends JFrame{
         JLabel score = new JLabel(){ {setOpaque(false);}};
         Image bigsc = new ImageIcon("./src/imgPack/merged_score.png").getImage();
         score.setIcon(new ImageIcon("./src/imgPack/merged_score.png"));
-        score.setBounds(401 - (bigsc.getWidth(null) / 2),228 - (bigsc.getHeight(null) / 2),bigsc.getWidth(null),bigsc.getHeight(null));
+        score.setBounds(401 - (bigsc.getWidth(null) / 2),250 - (bigsc.getHeight(null) / 2),bigsc.getWidth(null),bigsc.getHeight(null));
         RetryButton rtybtn = new RetryButton(this);
-        rtybtn.setBounds(600, 340, 169, 59);
+        rtybtn.setBounds(550, 310, 169, 59);
         background.add(score);
         background.add(rtybtn);
 
