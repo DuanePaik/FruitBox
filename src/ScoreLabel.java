@@ -1,9 +1,7 @@
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class ScoreLabel extends JLabel {
 
@@ -11,6 +9,7 @@ public class ScoreLabel extends JLabel {
     private int score ;
     private Image[] numbers = new Image[10];
     private Image[] scoreimg;
+    private BufferedImage merged;
 
     public ScoreLabel(AppleBoard b){
 
@@ -21,7 +20,11 @@ public class ScoreLabel extends JLabel {
             numbers[i] = new ImageIcon("./src/imgPack/"+ i +".png").getImage();
         setOpaque(false);
         makeScore();
-        mergeScore();
+        merged = mergeScore();
+        ImageIcon icon = new ImageIcon(merged);
+        setIcon(icon);
+        setBounds(401 - (icon.getImage().getWidth(null) / 2),250 - (icon.getImage().getHeight(null) / 2)
+                ,icon.getImage().getWidth(null),icon.getImage().getHeight(null));
 
     }
 
@@ -33,8 +36,7 @@ public class ScoreLabel extends JLabel {
             scoreimg[i] = numbers[Character.getNumericValue(st_score[i])];
     }
 
-   public void mergeScore() {
-        try {
+   public BufferedImage mergeScore() {
 
             int width = 0;
             int height = 96;
@@ -51,10 +53,7 @@ public class ScoreLabel extends JLabel {
             for (int i = 1 ; i < scoreimg.length ; i++)
                 graphics.drawImage(scoreimg[i], scoreimg[i-1].getWidth(null),0,null);
 
-            ImageIO.write(mergedImage, "png", new File("./src/imgPack/merged_score.png"));
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+           // ImageIO.write(mergedImage, "png", new File("./src/imgPack/merged_score.png"));
+            return mergedImage;
     }
 }

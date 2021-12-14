@@ -7,8 +7,6 @@ public class AppleBoard {
 	private int score = 0;
 	private int t_row = -1, t_col = -1, t_value = -1;
 	private int[][] board = new int[12][15];
-	private boolean first = true;
-	private boolean second = false;
 	private boolean target = false;
 	private int gold_count = 0;
 	private int temp_gold = 0;
@@ -86,7 +84,7 @@ public class AppleBoard {
 						return false;
 					}
 					}
-			else if(info[1] < t_col) {
+			else {
 				System.out.println("case2");
 					int sum = 0;
 					for(int i = info[1] ; i <= t_col ; i++)
@@ -125,7 +123,7 @@ public class AppleBoard {
 						return false;
 					}
 			}
-			else if(info[0] < t_row) {
+			else {
 				System.out.println("case4");
 					int sum = 0;
 					for(int i = info[0] ; i <= t_row ; i++)
@@ -144,7 +142,7 @@ public class AppleBoard {
 					}
 			}
 		}
-		else if(t_row != info[0] && t_col != info[1]) {
+		else if(t_row != info[0]) {
 			
 			if((info[0] > t_row) && (info[1] > t_col)) {
 				System.out.println("case5");
@@ -186,7 +184,7 @@ public class AppleBoard {
 					return false;
 				}
 			}
-			else if((info[0] > t_row) && (info[1] < t_col)) {
+			else if(info[0] > t_row) {
 				System.out.println("case7");
 				int sum = 0;
 				for(int i = t_row; i <= info[0] ; i++)
@@ -206,7 +204,7 @@ public class AppleBoard {
 					return false;
 				}
 			}
-			else if((info[0] < t_row) && (info[1] < t_col)) {
+			else {
 				System.out.println("case8");
 				int sum = 0;
 				for(int i = info[0]; i <= t_row ; i++)

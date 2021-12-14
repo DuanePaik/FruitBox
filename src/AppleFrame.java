@@ -80,8 +80,8 @@ public class AppleFrame extends JFrame{
 				float last_time = (float)ChronoUnit.SECONDS.between(LocalTime.now(),board.getEnd_time());
 				width = (int)(200 * last_time / full_time);
 				if (width == 0){
-					new ScoreLabel(board);
-					new ResultFrame();
+					set_gameOff();
+					new ResultFrame(board);
 					dispose();
 				}
 				g.setColor(Color.black);

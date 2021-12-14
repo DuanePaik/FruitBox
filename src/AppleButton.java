@@ -59,15 +59,12 @@ public class AppleButton extends JButton implements ActionListener{
 			} else {
 				if (board.check(new int[]{row, col, face})) {
 					System.out.println("Success");
-					System.out.println("" + board.getScore());
-					board.targetOff();
-					frame.update();
 				} else {
 					System.out.println("Fail");
-					System.out.println("" + board.getScore());
-					board.targetOff();
-					frame.update();
 				}
+				System.out.println("" + board.getScore());
+				board.targetOff();
+				frame.update();
 			}
 		}
 	}

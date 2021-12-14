@@ -5,8 +5,11 @@ import java.awt.*;
 public class ResultFrame extends JFrame{
 
     private Image rty_bg = new ImageIcon("./src/imgPack/result.png").getImage();
+    private AppleBoard board;
 
-    public ResultFrame(){
+    public ResultFrame(AppleBoard b){
+
+        board = b;
 
         JPanel background = new JPanel() {
             { setOpaque(false); }
@@ -19,10 +22,7 @@ public class ResultFrame extends JFrame{
         this.setContentPane(background);
         background.setLayout(null);
 
-        JLabel score = new JLabel(){ {setOpaque(false);}};
-        Image bigsc = new ImageIcon("./src/imgPack/merged_score.png").getImage();
-        score.setIcon(new ImageIcon("./src/imgPack/merged_score.png"));
-        score.setBounds(401 - (bigsc.getWidth(null) / 2),250 - (bigsc.getHeight(null) / 2),bigsc.getWidth(null),bigsc.getHeight(null));
+        ScoreLabel score = new ScoreLabel(board);
         RetryButton rtybtn = new RetryButton(this);
         rtybtn.setBounds(550, 310, 169, 59);
         background.add(score);
@@ -32,6 +32,6 @@ public class ResultFrame extends JFrame{
         setSize(803,448);
         setResizable(false);
         setVisible(true);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

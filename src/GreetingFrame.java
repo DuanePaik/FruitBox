@@ -22,7 +22,7 @@ public class GreetingFrame extends JFrame{
 		play.setBounds(125, 290, 200, 237);
 		background.add(play);
 
-		H2P h2pbtn = new H2P(this);
+		H2P h2pbtn = new H2P();
 		h2pbtn.setBounds(100, 600, 332, 55);
 		background.add(h2pbtn);
 

@@ -22,7 +22,7 @@ public class StartButton extends JButton implements ActionListener{
 		setFocusPainted(false);
 		addActionListener(this);
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		new AppleFrame(new AppleBoard());
 		frame.dispose();

@@ -5,11 +5,7 @@ import java.awt.event.ActionListener;
 
 public class H2P extends JButton implements ActionListener {
 
-    private GreetingFrame frame;
-
-    public H2P(GreetingFrame f){
-
-        frame = f;
+    public H2P(){
 
         ImageIcon image = new ImageIcon("./src/imgPack/H2P.png");
 
