@@ -14,7 +14,7 @@ public class ScoreLabel extends JLabel {
     public ScoreLabel(AppleBoard b){
 
         board = b;
-        score = b.getScore();
+        score = board.getScore();
 
         for (int i = 0; i < 10; i++)
             numbers[i] = new ImageIcon("./src/imgPack/"+ i +".png").getImage();
@@ -53,7 +53,6 @@ public class ScoreLabel extends JLabel {
             for (int i = 1 ; i < scoreimg.length ; i++)
                 graphics.drawImage(scoreimg[i], scoreimg[i-1].getWidth(null),0,null);
 
-           // ImageIO.write(mergedImage, "png", new File("./src/imgPack/merged_score.png"));
             return mergedImage;
     }
 }

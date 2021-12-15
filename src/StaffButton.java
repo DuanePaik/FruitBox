@@ -5,11 +5,7 @@ import java.net.URISyntaxException;
 
 public class StaffButton extends JButton implements ActionListener {
 
-    private GreetingFrame frame;
-
-    public StaffButton(GreetingFrame f){
-
-        frame = f;
+    public StaffButton(){
 
         ImageIcon image = new ImageIcon("./src/imgPack/STF.png");
 

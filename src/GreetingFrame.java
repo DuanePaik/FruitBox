@@ -26,7 +26,7 @@ public class GreetingFrame extends JFrame{
 		h2pbtn.setBounds(100, 600, 332, 55);
 		background.add(h2pbtn);
 
-		StaffButton stfbtn = new StaffButton(this);
+		StaffButton stfbtn = new StaffButton();
 		stfbtn.setBounds(535, 600, 160, 52);
 		background.add(stfbtn);
 
