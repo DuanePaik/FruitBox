@@ -34,7 +34,7 @@ public class AppleButton extends JButton implements ActionListener{
 			face = n;
 		img = new ImageIcon("./src/imgPack/a" + n + ".png");
 		cimg = new ImageIcon("./src/imgPack/ca" + n + ".png");
-		setIcon(img);
+		lightOff();
 	}
 	public void setRow(int num) {
 		row = num;
@@ -46,7 +46,7 @@ public class AppleButton extends JButton implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 
-		if(frame.get_gameOn()) {
+		if(frame.getGameOn()) {
 
 			if (!board.isFirst()) {
 				board.targetOn();
@@ -68,11 +68,11 @@ public class AppleButton extends JButton implements ActionListener{
 			}
 		}
 	}
-	
+
 	public void lightOn() {
 		setIcon(cimg);
 	}
-	
+
 	public void lightOff() {
 		setIcon(img);
 	}

@@ -8,8 +8,7 @@ public class AppleBoard {
 	private int t_row = -1, t_col = -1, t_value = -1;
 	private int[][] board = new int[12][15];
 	private boolean target = false;
-	private int gold_count = 0;
-	private int temp_gold = 0;
+	private int gold_in_rect = 0;
 	private int score_count = 0;
 	private LocalTime start_time;
 	private LocalTime end_time;
@@ -59,9 +58,9 @@ public class AppleBoard {
 		board[row][col] = 0;
 	}
 	public void calcScore(){
-		score += score_count * (int)Math.pow(2.0, gold_count);
+		score += score_count * (int)Math.pow(2.0, gold_in_rect);
 		score_count = 0;
-		gold_count = 0;
+		gold_in_rect = 0;
 	}
 	public boolean check(int[] info) {
 		if(t_row == info[0] && t_col != info[1]) {
@@ -74,13 +73,11 @@ public class AppleBoard {
 					if (sum == 10) {
 						for(int i = t_col ; i <= info[1] ; i++)
 							makeZero(t_row, i);
-						gold_count += temp_gold;
-						temp_gold = 0;
 						calcScore();
 						return true; 
 						}
 					else {
-						temp_gold = 0;
+						gold_in_rect = 0;
 						return false;
 					}
 					}
@@ -92,13 +89,11 @@ public class AppleBoard {
 					if (sum == 10){
 						for(int i = info[1] ; i <= t_col ; i++)
 							makeZero(t_row, i);
-						gold_count += temp_gold;
-						temp_gold = 0;
 						calcScore();
 						return true; 
 						}
 					else {
-						temp_gold = 0;
+						gold_in_rect = 0;
 						return false;
 					}
 			}
@@ -113,13 +108,11 @@ public class AppleBoard {
 					if (sum == 10) {
 						for(int i = t_row ; i <= info[0] ; i++)
 							makeZero(i,t_col);
-						gold_count += temp_gold;
-						temp_gold = 0;
 						calcScore();
 						return true; 
 						}
 					else {
-						temp_gold = 0;
+						gold_in_rect = 0;
 						return false;
 					}
 			}
@@ -131,13 +124,11 @@ public class AppleBoard {
 					if (sum == 10){
 						for(int i = info[0] ; i <= t_row ; i++)
 							makeZero(i,t_col);
-						gold_count += temp_gold;
-						temp_gold = 0;
 						calcScore();
 						return true; 
 						}
 					else {
-						temp_gold = 0;
+						gold_in_rect = 0;
 						return false;
 					}
 			}
@@ -154,13 +145,11 @@ public class AppleBoard {
 					for(int i = t_row; i <= info[0] ; i++)
 						for(int j = t_col; j <= info[1] ; j++)
 							makeZero(i,j);
-					gold_count += temp_gold;
-					temp_gold = 0;
 					calcScore();
 					return true;
 					}
 				else {
-					temp_gold = 0;
+					gold_in_rect = 0;
 					return false;
 				}
 			}
@@ -174,13 +163,11 @@ public class AppleBoard {
 					for(int i = info[0]; i <= t_row ; i++)
 						for(int j = t_col; j <= info[1] ; j++)
 							makeZero(i,j);
-					gold_count += temp_gold;
-					temp_gold = 0;
 					calcScore();
 					return true;
 					}
 				else {
-					temp_gold = 0;
+					gold_in_rect = 0;
 					return false;
 				}
 			}
@@ -194,13 +181,11 @@ public class AppleBoard {
 					for(int i = t_row; i <= info[0] ; i++)
 						for(int j = info[1]; j <= t_col ; j++)
 							makeZero(i,j);
-					gold_count += temp_gold;
-					temp_gold = 0;
 					calcScore();
 					return true;
 					}
 				else {
-					temp_gold = 0;
+					gold_in_rect = 0;
 					return false;
 				}
 			}
@@ -214,13 +199,11 @@ public class AppleBoard {
 					for(int i = info[0]; i <= t_row ; i++)
 						for(int j = info[1]; j <= t_col ; j++)
 							makeZero(i,j);
-					gold_count += temp_gold;
-					temp_gold = 0;
 					calcScore();
 					return true;
 					}
 				else{
-					temp_gold = 0;
+					gold_in_rect = 0;
 					return false;
 				}
 			}
@@ -232,13 +215,13 @@ public class AppleBoard {
 	
 	public int normalize(int value) {
 		if(value > 9) {
-			temp_gold += 1;
+			gold_in_rect += 1;
 			return value / 10;
 		}
 		else
 			return value;
 	}
 
-	public LocalTime getStart_time(){ return start_time; }
-	public LocalTime getEnd_time(){ return end_time; }
+	public LocalTime getStartTime(){ return start_time; }
+	public LocalTime getEndTime(){ return end_time; }
 }

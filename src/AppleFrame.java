@@ -11,7 +11,7 @@ public class AppleFrame extends JFrame{
 	private AppleButton[][] button_board;
 	private Image bg = new ImageIcon("./src/imgPack/gboard.png").getImage();
 	private JLabel score;
-	private boolean game_On = false;
+	private boolean game_on = false;
 	
 	public AppleFrame (AppleBoard b) {
 		
@@ -76,11 +76,11 @@ public class AppleFrame extends JFrame{
 				int width;
 				Image bar = new ImageIcon("./src/imgPack/hpBar.png").getImage();
 				Image bar2 = new ImageIcon("./src/imgPack/bar2.png").getImage();
-				float full_time = (float)ChronoUnit.SECONDS.between(board.getStart_time(),board.getEnd_time());
-				float last_time = (float)ChronoUnit.SECONDS.between(LocalTime.now(),board.getEnd_time());
+				float full_time = (float)ChronoUnit.SECONDS.between(board.getStartTime(),board.getEndTime());
+				float last_time = (float)ChronoUnit.SECONDS.between(LocalTime.now(),board.getEndTime());
 				width = (int)(200 * last_time / full_time);
 				if (width == 0){
-					set_gameOff();
+					setGameOff();
 					new ResultFrame(board);
 					dispose();
 				}
@@ -126,7 +126,7 @@ public class AppleFrame extends JFrame{
 		background.add(p4, BorderLayout.WEST);
 		background.add(p5, BorderLayout.EAST);
 
-		set_gameOn();
+		setGameOn();
 		update();
 		setTitle("Fruit Box");
 		setSize(855,759);
@@ -135,9 +135,9 @@ public class AppleFrame extends JFrame{
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 
-	public boolean get_gameOn() { return game_On; }
-	public void set_gameOff() { game_On = false; }
-	public void set_gameOn() { game_On = true; }
+	public boolean getGameOn() { return game_on; }
+	public void setGameOff() { game_on = false; }
+	public void setGameOn() { game_on = true; }
 
 	private void setGrid(JComponent obj,double wx, double wy, int x, int y, GridBagConstraints gbc, JPanel panel) {
 		gbc.weightx = wx;
